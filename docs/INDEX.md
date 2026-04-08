@@ -17,7 +17,7 @@ Quick reference for finding the right skill or agent. See also: [Cookbook](primi
 - **Deploy something** -> /deploy (readiness gate, strategy selection, execution, monitoring, rollback)
 - **Optimize something** -> /optimize (profile -> bottleneck -> fix -> measure -> iterate)
 - **Test an implementation** -> /test-strategy (classify spec type, write tests, enforce red-green gates)
-- **Review code** -> /review (structured code review)
+- **Review code** -> /review (structured static review) or /review-meeting (interactive panel review with implementer + reviewers)
 - **File a bug** -> /bug (structured bug report to backlog)
 - **Understand a definition's history** -> /evolution (file change history and stability) or /drift (cross-definition convergence/divergence)
 - **Manage a team** -> /assemble (create) -> /standup (sync) -> /sprint (dispatch)
@@ -61,7 +61,7 @@ Composable primitives following [pipe format](../rules/pipe-format.md), plus the
 | /do | Primary entrypoint: match goal to skill/pipeline and execute it | Router |
 | /discover | Recommend skills or pipelines for a described goal | Router |
 
-### Workflows (28) — `skills/workflows/`
+### Workflows (29) — `skills/workflows/`
 
 Orchestrated multi-step workflows with side effects (file writes, agent dispatch, backlog updates).
 
@@ -78,6 +78,7 @@ Orchestrated multi-step workflows with side effects (file writes, agent dispatch
 | /drive | Sustained autonomous implementation against a plan document via sprint/retro loops | inline |
 | /deploy | Structured deployment: readiness gate, strategy selection, execution, monitoring, rollback | fork |
 | /review | Structured code review (5 dimensions) | fork |
+| /review-meeting | Interactive panel review: implementer + reviewer(s) dialogue | inline |
 | /bug | File structured bug reports to backlog | inline |
 | /consolidate | Backlog dedup, stale detection, cleanup | fork |
 | /session-health | Context load and drift diagnostic | inline |
@@ -114,7 +115,7 @@ Persistent team orchestration and the learning lifecycle (curation, promotion, r
 
 ## Skills by Context Type
 
-**Inline (41):** gather, distill, expand, transform, rank, filter, assess, verify, sketch, merge, decompose, critique, plan, diff-ideas, do, discover, fractal, meeting, bug, session-health, handoff, status, advise, evolution, drift, diagnose-agent, challenge-gen, challenge-run, domain, assemble, standup, sprint, team-meeting, curate, promote, tend, retro, storm-prep, formalize, integrate, drive
+**Inline (42):** gather, distill, expand, transform, rank, filter, assess, verify, sketch, merge, decompose, critique, plan, diff-ideas, do, discover, fractal, meeting, review-meeting, bug, session-health, handoff, status, advise, evolution, drift, diagnose-agent, challenge-gen, challenge-run, domain, assemble, standup, sprint, team-meeting, curate, promote, tend, retro, storm-prep, formalize, integrate, drive
 
 **Fork (12):** blossom, bootstrap, consensus, consolidate, deploy, optimize, premortem, review, spec, test-strategy, tracer, active-learn
 
@@ -133,6 +134,7 @@ Common composition sequences (each step's output feeds the next via context):
 /gather -> /distill -> /sketch        # Research -> condense -> prototype
 /critique -> /bug                     # Find flaws -> file as tracked issues
 /review -> /bug                       # Code review -> file bugs from findings
+/review-meeting -> /bug               # Interactive panel review -> file escalated findings
 /gather -> /transform as ticket titles  # Research -> rewrite each finding as a ticket
 /gather -> /distill -> /expand         # Research -> condense -> elaborate key findings
 /drift -> /rank -> /sprint            # Compare definitions -> prioritize fixes -> execute
