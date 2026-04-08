@@ -62,9 +62,21 @@ TeamCreate({ team_name: "review-meeting-<short-slug>" })
 
 ### 1b. Spawn Panelists
 
-Spawn the Implementer and Reviewer in parallel. Spawn specialist agents only if flagged in Phase 0c.
+Spawn the Implementer and Reviewer in parallel. Spawn specialist agents only if identified in Phase 0c.
 
-**Implementer prompt:**
+The `name` field in each Task invocation is the canonical `SendMessage.recipient` value used throughout this skill. Specialist names are the kebab-case slug of the role (e.g., "Security Reviewer" → `"security-reviewer"`).
+
+**Implementer:**
+
+```
+Task({
+  team_name: "review-meeting-<slug>",
+  name: "implementer",
+  subagent_type: "general-purpose",
+  run_in_background: true,
+  prompt: "<implementer prompt — see below>"
+})
+```
 
 > You are the **Implementer** in a code review meeting for: [target description]
 >
@@ -74,7 +86,17 @@ Spawn the Implementer and Reviewer in parallel. Spawn specialist agents only if 
 >
 > **CRITICAL: You MUST use the SendMessage tool to communicate.** Your plain text output is NOT visible to anyone. Every response must be sent via `SendMessage({ type: "message", recipient: "team-lead", content: "...", summary: "..." })`. Always send to **team-lead**. If you do not call SendMessage, nobody will see what you said.
 
-**Reviewer prompt:**
+**Reviewer:**
+
+```
+Task({
+  team_name: "review-meeting-<slug>",
+  name: "reviewer",
+  subagent_type: "general-purpose",
+  run_in_background: true,
+  prompt: "<reviewer prompt — see below>"
+})
+```
 
 > You are the **Reviewer** in a code review meeting for: [target description]
 >
@@ -84,7 +106,17 @@ Spawn the Implementer and Reviewer in parallel. Spawn specialist agents only if 
 >
 > **CRITICAL: You MUST use the SendMessage tool to communicate.** Your plain text output is NOT visible to anyone. Every response must be sent via `SendMessage({ type: "message", recipient: "team-lead", content: "...", summary: "..." })`. Always send to **team-lead**. If you do not call SendMessage, nobody will see what you said.
 
-**Specialist prompt template** (use for each specialist identified in Phase 0c, substituting their role name and focus):
+**Specialist** (one Task per specialist identified in Phase 0c):
+
+```
+Task({
+  team_name: "review-meeting-<slug>",
+  name: "<specialist-slug>",        # kebab-case, e.g. "security-reviewer"
+  subagent_type: "general-purpose",
+  run_in_background: true,
+  prompt: "<specialist prompt — see below>"
+})
+```
 
 > You are the **[Role Name]** in a code review meeting for: [target description]
 >
@@ -258,7 +290,7 @@ For escalated findings that became action items:
 ```bash
 # tacks
 tk create -t bug "[SEVERITY]: [finding title]"
-# bd: bd create --title="[SEVERITY]: [finding title]" --type=task --priority=<1-for-critical,2-for-warning> \
+# bd: bd create --title="[SEVERITY]: [finding title]" --type=bug --priority=<1-for-critical,2-for-warning> \
 #   --description="From review meeting on [target]. Location: [file:line]. Issue: [description]. Suggested fix: [fix]."
 ```
 
