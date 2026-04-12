@@ -59,6 +59,16 @@ curl -fsSL https://raw.githubusercontent.com/tyevans/tackline/main/dev/install-r
 # bash /path/to/tackline/dev/install-rules.sh
 ```
 
+### OpenCode
+
+Tell OpenCode to fetch and follow the install guide:
+
+```
+Fetch https://raw.githubusercontent.com/tyevans/tackline/main/docs/install-opencode.md and follow the instructions to install tackline.
+```
+
+See [docs/install-opencode.md](docs/install-opencode.md) for details.
+
 ### Uninstall
 
 ```bash
