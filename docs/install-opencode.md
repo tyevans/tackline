@@ -337,19 +337,16 @@ Create `opencode.json` at the project root (not inside `.opencode/`):
   "instructions": ["AGENTS.md"],
   "mcp": {
     "sequential-thinking": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"],
-      "description": "Structured multi-step reasoning for complex problems"
+      "type": "local",
+      "command": ["npx", "-y", "@modelcontextprotocol/server-sequential-thinking"]
     },
     "context7": {
-      "command": "npx",
-      "args": ["-y", "@upstash/context7-mcp@2.1.1"],
-      "description": "Up-to-date library documentation lookup"
+      "type": "local",
+      "command": ["npx", "-y", "@upstash/context7-mcp@2.1.1"]
     },
     "memory": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-memory"],
-      "description": "Persistent knowledge graph across sessions"
+      "type": "local",
+      "command": ["npx", "-y", "@modelcontextprotocol/server-memory"]
     }
   }
 }
@@ -473,16 +470,16 @@ cat > opencode.json << 'CONF'
   "instructions": ["AGENTS.md"],
   "mcp": {
     "sequential-thinking": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"]
+      "type": "local",
+      "command": ["npx", "-y", "@modelcontextprotocol/server-sequential-thinking"]
     },
     "context7": {
-      "command": "npx",
-      "args": ["-y", "@upstash/context7-mcp@2.1.1"]
+      "type": "local",
+      "command": ["npx", "-y", "@upstash/context7-mcp@2.1.1"]
     },
     "memory": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-memory"]
+      "type": "local",
+      "command": ["npx", "-y", "@modelcontextprotocol/server-memory"]
     }
   }
 }
