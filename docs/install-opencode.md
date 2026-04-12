@@ -103,13 +103,12 @@ model: sonnet
 ---
 ```
 
-Add `mode` and `permissions`:
+Remove the `tools` field (Claude Code only) and add `mode` and `permissions`:
 
 ```yaml
 ---
 name: code-reviewer
 description: Reviews staged diffs or PR diffs for correctness, security, style consistency, and architectural coherence.
-tools: Read, Glob, Grep, Bash
 model: sonnet
 mode: "subagent"
 permissions:
@@ -460,6 +459,8 @@ grep -rl '.claude/tackline/memory/' .opencode/skills/ 2>/dev/null | \
 
 echo "Copying agents..."
 cp "$TACKLINE/agents/"*.md .opencode/agents/
+# Remove 'tools:' field (Claude Code only; OpenCode uses 'permissions:' instead)
+sed -i '/^tools: /d' .opencode/agents/*.md
 # Fix memory paths in agents
 grep -rl '.claude/tackline/memory/' .opencode/agents/ 2>/dev/null | \
   xargs -r sed -i 's|\.claude/tackline/memory/|.opencode/memory/|g'
