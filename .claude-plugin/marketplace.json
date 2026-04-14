@@ -11,7 +11,7 @@
       "name": "tackline",
       "source": "./",
       "description": "48 composable workflow skills, specialized agents, and session hooks for Claude Code orchestration",
-      "version": "2.0.0",
+      "version": "2.0.1",
       "author": {
         "name": "ty"
       },
