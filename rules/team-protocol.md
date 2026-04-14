@@ -145,13 +145,20 @@ Owns: <owns patterns>
 ## Task
 <task description>
 
+## Worktree Discipline
+You MUST work in an isolated worktree — never modify files in the primary working directory.
+- Use `isolation: "worktree"` when dispatched, or `EnterWorktree` if working interactively
+- All file changes happen in your worktree only
+- If you find yourself in the primary directory, stop and request worktree isolation
+
 ## Commit Discipline
-You are working in an isolated worktree. You MUST commit your changes before finishing.
+You MUST commit your changes to your worktree branch before finishing.
 - Commit early and often — each logical change gets its own commit
 - Keep commits focused: one concern per commit (e.g., separate "add feature" from "update tests")
 - Do not batch all changes into a single large commit
 - Use conventional commit messages (feat:, fix:, refactor:, docs:, chore:)
 - If your task is partially complete, commit what you have — partial progress committed is better than full progress uncommitted
+- Run `git status` at the end to confirm nothing is left uncommitted
 
 ## Reflection Protocol
 After completing your task, end your response with a structured reflection:
