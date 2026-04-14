@@ -18,6 +18,21 @@ Do not perform implementation work in the primary session even when it feels fas
 
 The only work the primary session performs directly is triage, coordination, and content-only edits in content-only repos (per CLAUDE.md operating mode).
 
+### Mandatory Agent Instructions
+
+Every dispatched subagent prompt MUST include these three directives:
+
+1. **Worktree isolation**: "You MUST work in an isolated worktree — never modify files in the primary working directory."
+2. **Commit to worktree branch**: "You MUST commit all changes to your worktree branch before finishing. Nothing left uncommitted."
+
+These are non-negotiable. The orchestrator includes them in every agent prompt regardless of dispatch mechanism (Task tool, TeamCreate, or ad-hoc Agent).
+
+### Post-Task Review Gate
+
+After a coding subagent completes, the **orchestrator** dispatches a fresh review agent (separate context, no prior involvement) against the subagent's worktree branch. The review agent runs `/review` on the diff. The orchestrator does not merge the worktree branch until the review passes.
+
+This is orchestrator work — subagents cannot spawn subagents.
+
 ## Concurrency by Default
 
 Assume tasks can run in parallel unless there is a true data dependency (one task's output is the next task's input). When in doubt, parallelize — merge conflicts in isolated worktrees are cheaper than serial execution time.
